@@ -1,0 +1,30 @@
+2025-11-10 21:44:50,548 [INFO] Configuration loaded successfully from 'dbconfig.yaml'.
+2025-11-10 21:44:54,137 [ERROR] Database connection failed: connection to server at "rushmore-db.postgres.database.azure.com" (172.167.134.87), port 5432 failed: FATAL:  password authentication failed for user "postgres@rushmore-db"
+connection to server at "rushmore-db.postgres.database.azure.com" (172.167.134.87), port 5432 failed: FATAL:  no pg_hba.conf entry for host "94.6.50.18", user "postgres@rushmore-db", database "rushmore-db", no encryption
+
+2025-11-10 21:44:54,139 [ERROR] Error during connection test: connection to server at "rushmore-db.postgres.database.azure.com" (172.167.134.87), port 5432 failed: FATAL:  password authentication failed for user "postgres@rushmore-db"
+connection to server at "rushmore-db.postgres.database.azure.com" (172.167.134.87), port 5432 failed: FATAL:  no pg_hba.conf entry for host "94.6.50.18", user "postgres@rushmore-db", database "rushmore-db", no encryption
+Traceback (most recent call last):
+  File "/var/folders/k4/zrjb0x3d3qn_c0x8sb70_f_r0000gn/T/ipykernel_10209/3688031790.py", line 55, in <module>
+    conn = get_conn(cfg)
+           ^^^^^^^^^^^^^
+  File "/var/folders/k4/zrjb0x3d3qn_c0x8sb70_f_r0000gn/T/ipykernel_10209/3688031790.py", line 36, in get_conn
+    conn = psycopg2.connect(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/slybills/Documents/DATA ENGINEERING CLASS/rushmore-pizzeria-enterprise-database/venv/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "rushmore-db.postgres.database.azure.com" (172.167.134.87), port 5432 failed: FATAL:  password authentication failed for user "postgres@rushmore-db"
+connection to server at "rushmore-db.postgres.database.azure.com" (172.167.134.87), port 5432 failed: FATAL:  no pg_hba.conf entry for host "94.6.50.18", user "postgres@rushmore-db", database "rushmore-db", no encryption
+
+2025-11-10 21:50:45,856 [INFO] Configuration loaded successfully from 'dbconfig.yaml'.
+2025-11-10 21:50:46,232 [INFO] Database connection established successfully to 'rushmore-db' at host 'rushmore-db.postgres.database.azure.com'.
+2025-11-10 21:50:46,237 [INFO] Connection test completed successfully — database reachable.
+2025-11-10 22:06:30,727 [INFO] Starting masking test...
+2025-11-10 22:06:30,882 [INFO] Masked email: john.smith@example.com -> j*********@example.com
+2025-11-10 22:06:30,903 [INFO] Masked phone: +44 7123 456789 -> ********6789
+2025-11-10 22:06:30,999 [INFO] Masking test completed successfully.
+2025-11-10 22:15:19,069 [INFO] Starting masking test...
+2025-11-10 22:15:19,072 [INFO] Masked email: john.smith@example.com -> j*********@example.com
+2025-11-10 22:15:19,073 [INFO] Masked phone: +44 7123 456789 -> ********6789
+2025-11-10 22:15:19,074 [INFO] Masking test completed successfully.
