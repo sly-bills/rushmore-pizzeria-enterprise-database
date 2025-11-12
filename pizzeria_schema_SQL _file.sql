@@ -1,5 +1,5 @@
 -- pizzeria_schema.sql
-BEGIN;
+
 
 -- 1. Create Schema and Set as Default
 CREATE SCHEMA IF NOT EXISTS pizzeria;
@@ -92,6 +92,5 @@ CREATE INDEX idx_orders_customer_id ON orders(customer_id);
 CREATE INDEX idx_orders_store_id ON orders(store_id);
 CREATE INDEX idx_item_ingredients_ingredient_id ON item_ingredients(ingredient_id);
 
-COMMIT;
 
  

@@ -140,7 +140,7 @@ def mask_phone(phone: str) -> str:
 def create_stores(cur, faker, num_stores=5):
     populate_logger.info(f"Starting to create {num_stores} stores...")
     stores = []
-    for _ in range(num_stores):
+    for _ in tqdm(range(num_stores), desc="Creating stores", colour="green"):
         address = faker.address().replace('\n', ', ')
         city = f"{faker.city()} RushMore Pizzeria"
         phone_number = faker.unique.msisdn()[:20]
@@ -160,10 +160,13 @@ def create_stores(cur, faker, num_stores=5):
 def create_customers(cur, faker, num_customers=1000):
     populate_logger.info(f"Starting to create {num_customers} customers...")
     customers = []
-    for _ in range(num_customers):
+    email_domains = ["gmail.com", "yahoo.com", "yahoo.co.uk", "hotmail.com", "live.co.uk", "yahoomail.com"]
+    for _ in tqdm(range(num_customers), desc="Creating customers", colour="green"):
         first_name = faker.first_name()
         last_name = faker.last_name()
-        email = raw_email = faker.unique.email()
+        local_part = f"{first_name.lower()}.{last_name.lower()}{random.randint(1,9999)}"
+        domain = random.choice(email_domains)
+        email = raw_email = f"{local_part}@{domain}"
         masked_email = mask_email(raw_email)
         # ensure masked uniqueness by adding a short suffix if collision detected
         if any(c[2] == masked_email for c in customers):
@@ -212,7 +215,7 @@ def create_ingredients(cur, faker, num_ingredients=50):
     ing = []
     for name in names:
         stock_quantity = random.randint(10, 500)
-        unit = random.choice(['grams', 'ml', 'pieces'])
+        unit = random.choice(['kg', 'liters', 'grams', 'ml', 'pieces'])
         ing.append((name, stock_quantity, unit))
 
     insert = "INSERT INTO ingredients (name, stock_quantity, unit) VALUES %s RETURNING ingredient_id"
@@ -284,7 +287,7 @@ def create_orders(cur, customer_ids, store_ids, num_orders=5000, guest_rate=0.10
     now = datetime.now(timezone.utc)
     # We'll generate order timestamps uniformly over the past 365 days
     days_back = 365
-    for _ in range(num_orders):
+    for _ in tqdm(range(num_orders), desc="Creating orders", colour="green"):
         # pick a customer or NULL (guest)
         customer_id = random.choice(customer_ids) if customer_ids and random.random() > guest_rate else None
         store_id = random.choice(store_ids)
@@ -315,7 +318,7 @@ def create_orders(cur, customer_ids, store_ids, num_orders=5000, guest_rate=0.10
         populate_logger.exception(f"Error inserting orders: {e}")
         raise    
 
-def create_order_items(cur, avg_items_per_order=3):
+def create_order_items(cur, avg_items_per_order=5):
     """
     Creates order_items for all orders in the DB (or you can filter by recent orders).
     This function:
@@ -369,7 +372,7 @@ def create_order_items(cur, avg_items_per_order=3):
     try:
         inserted_count = 0
         batch = 2000
-        for i in range(0, len(order_item_rows), batch):
+        for i in tqdm(range(0, len(order_item_rows), batch), desc="Inserting order_items", colour="green"):
             chunk = order_item_rows[i:i+batch]
             rows = execute_values(cur, insert, chunk, fetch=True)
             inserted_count += len(rows)
