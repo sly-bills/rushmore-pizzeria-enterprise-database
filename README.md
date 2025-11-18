@@ -30,7 +30,7 @@ This project demonstrates how to design, implement, and populate an enterprise-l
 | 'pizzeria_schema.sql'          | SQL script to create database schema and tables                                   |
 | 'dbconfig.yaml'                | Database connection configuration file                                            |
 | 'populate.py'                  | Python script for data population                                                 |
-| 'Analysis Queries'             | Contains SQL scripts for business analysis                                        |
+| 'Analytics & Queries'          | Contains SQL scripts for business analysis                                        |
 | 'Requirements.txt'             | Contains all foreign dependencies installed to run the python script              |
 | '.gitignore'                   |                                                                                   |
 
